@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+  <head>
+      <title>Review Gambar Sebelum Upload</title>
+  </head>
+  <body>
+      <form action="" method="GET">
+          <input type="file" id="ambilFiles">
+          <button>submit</button>
+      </form>
+      <p id="msg" style="color:red;"></p>
+      <img id='imgReview' width="100" src="" alt="" />
+      
+  </body>
+  <script src="jQuery.js"></script>
+  <script>
+      $(document).ready(function(){
+          $('#ambilFiles').change(function(){
+              ambilData(this);
+          })
+          function ambilData(data){
+            files = data.files[0];
+            msg = $('#msg');
+            if(files['type'] != 'image/jpg' && files['type'] != 'image/png' && files['type'] != 'image/jpeg'){
+              msg.text('Harus JPG/PNG')
+            }else{
+              msg.text(' ')
+              if(files){
+                filesR = new FileReader();
+                filesR.onload = function(x){
+                  $('#imgReview').attr('src',x.target.result)
+                }
+                filesR.readAsDataURL(files)
+              }
+            }
+          }
+      })
+      
+  </script>
+</html>
